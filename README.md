@@ -1,6 +1,6 @@
 # EOF
 ```
-class EOF(dataset: tuple, n_components: int, field: str = "2D", svd_args : dict = {"solver": "auto", "tol": 0.0, "iterated_power": "auto", "n_oversamples": 10, "power_iteration_normalizer": "auto", "random_state": None})
+class EOF(dataset: tuple, n_components: int, field: str = "2D", svd_args: dict = {"solver": "auto", "tol": 0.0, "iterated_power": "auto", "n_oversamples": 10, "power_iteration_normalizer": "auto", "random_state": None})
 ```
 This package EOF provides EOFs and combined EOFs of either 1-dimensional or 2-dimensional meteorological field.
 
