@@ -46,6 +46,7 @@ The eigenvectors $e_m$ give the empirical orthogonal functions. The first eigenv
 More details on derivation can be seen in:
 https://doi.org/10.1016/B978-0-12-800066-3.00006-1.
 
+## Usage
 For the single 1-dimensional variable EOF case:
 ```
 import numpy as np
