@@ -9,7 +9,7 @@ class EOF:
     ----------
     dataset: tuple
         A tuple with elements are variables that you want to find their EOFs
-        Variables must be array like, time mean need to be removed
+        Variables must be array like, and must be standardized
         If given more than one dataset, combined EOF will be calculated
     
     n_components: int
@@ -17,6 +17,9 @@ class EOF:
 
     field: str, 1D or 2D, default = 2D
         The dimension of input variable arrays
+    
+    svd_args: dict
+        Arguments for svd calculation in sklearn.decomposition.PCA, default = {"solver": "auto", "tol": 0.0, "iterated_power": "auto", "n_oversamples": 10, "power_iteration_normalizer": "auto", "random_state": None}
     
     About EOFs
     ----------
@@ -33,7 +36,8 @@ class EOF:
         self,
         dataset     : tuple,
         n_components: int,
-        field       : str = "2D"
+        field       : str  = "2D",
+        svd_args    : dict = {"solver": "auto", "tol": 0.0, "iterated_power": "auto", "n_oversamples": 10, "power_iteration_normalizer": "auto", "random_state": None}
     ):
         self.dataset      = dataset
         self.data_arr     = None
@@ -43,6 +47,7 @@ class EOF:
         self.EOF          = None
         self.PC           = None
         self.explained    = None
+        self._svd         = svd_args
     
     def _check_dimension(self):
         """
@@ -57,7 +62,8 @@ class EOF:
         None
         """
         for sub in self.dataset:
-            if (self.field == "2D" and np.ndim(sub) == 2) or (self.field == "1D" and np.ndim(sub) == 3):
+            if (self.field == "2D" and np.ndim(sub) == 3) or (self.field == "1D" and np.ndim(sub) == 2): pass
+            else:
                 raise ValueError("The dimensions of input variables need to be consistent with input 'field'")
 
     def _single_subdataset_reshape_2D(self, subdataset: np.ndarray) -> np.ndarray:
@@ -96,10 +102,10 @@ class EOF:
         None
         """
         if len(self.dataset) > 1:
-            arr          = np.array(self.dataset)
-            self.dataarr = np.reshape(np.transpose(arr, (1, 0, 2, 3)), (arr.shape[1], arr.shape[0]*arr.shape[2]*arr.shape[3]))
+            arr           = np.array(self.dataset)
+            self.data_arr = np.reshape(np.transpose(arr, (1, 0, 2, 3)), (arr.shape[1], arr.shape[0]*arr.shape[2]*arr.shape[3]))
         else:
-            self.dataarr = self._single_subdataset_reshape_2D(self.dataset[0])
+            self.data_arr = self._single_subdataset_reshape_2D(self.dataset[0])
     
     def _dataset_reshape_1D(self):
         """
@@ -114,10 +120,10 @@ class EOF:
         None
         """
         if len(self.dataset) > 1:
-            arr          = np.array(self.dataset)
-            self.dataarr = np.reshape(np.transpose(arr, (1, 0, 2)), (arr.shape[1], arr.shape[0]*arr.shape[2]))
+            arr           = np.array(self.dataset)
+            self.data_arr = np.reshape(np.transpose(arr, (1, 0, 2)), (arr.shape[1], arr.shape[0]*arr.shape[2]))
         else:
-            self.dataarr = self.dataset[0]
+            self.data_arr = self.dataset[0]
 
     def _fit(self):
         """
@@ -131,8 +137,8 @@ class EOF:
         -------
         None
         """
-        pca_ = PCA(n_components = self.n_components)
-        pca_.fit(self.dataarr)
+        pca_ = PCA(n_components = self.n_components, svd_solver = self._svd["solver"], tol = self._svd["tol"], iterated_power = self._svd["iterated_power"], n_oversamples = self._svd["n_oversamples"], power_iteration_normalizer = self._svd["power_iteration_normalizer"], random_state = self._svd["random_state"])
+        pca_.fit(self.data_arr)
         self.pca = pca_
 
     def _calc_EOF(self):
@@ -161,7 +167,10 @@ class EOF:
         -------
         None
         """
-        self.PC = np.dot(self.EOF, self.dataarr.T)
+        PC = np.dot(self.EOF, self.data_arr.T)
+        for _ in range(PC.shape[0]):
+            PC[_] = PC[_] / np.std(PC[_])
+        self.PC = PC
     
     def _calc_explained(self):
         """
@@ -190,6 +199,10 @@ class EOF:
         None
         """
         self._check_dimension()
+        if self.field == "1D":
+            self._dataset_reshape_1D()
+        else:
+            self._dataset_reshape_2D()
         self._fit()
         self._calc_EOF()
         self._calc_PC()

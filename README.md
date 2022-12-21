@@ -1,10 +1,10 @@
 # EOF
 ```
-class EOF(dataset: tuple, n_components: int, field: str = "2D")
+class EOF(dataset: tuple, n_components: int, field: str = "2D", svd_args : dict = {"solver": "auto", "tol": 0.0, "iterated_power": "auto", "n_oversamples": 10, "power_iteration_normalizer": "auto", "random_state": None})
 ```
 This package EOF provides EOFs and combined EOFs of either 1-dimensional or 2-dimensional meteorological field.
 
-If the tuple _dataset_ only contains one array, it will give single variable EOFs. If the tuple _dataset_ contains more than one array, it will give combined EOFs.
+If the dataset only contains one array, it will give single variable EOFs. If the dataset contains more than one array, it will give combined EOFs.
 
 ## A simple introduction to EOFs
 Considering a data matrix $X$ with n timesteps and m spacegrids
@@ -46,16 +46,15 @@ The eigenvectors $e_m$ give the empirical orthogonal functions. The first eigenv
 More details on derivation can be seen in:
 https://doi.org/10.1016/B978-0-12-800066-3.00006-1.
 
-## Usage
 For the single 1-dimensional variable EOF case:
 ```
 import numpy as np
 from EOF import EOF
 
-ds  = ncfile.variable["var"][:]
-ds -= np.mean(ds, axis=(0))
+ds     = ncfile.variable["var"][:]
+ds_new = (ds - ds.mean(axis=(0))) / ds.std(axis = (0))
 
-single_EOF = EOF((ds,), n_components=40, field = "1D")
+single_EOF = EOF((ds_new,), n_components=40, field = "1D")
 single_EOF.get()
 
 # EOF modes
@@ -74,14 +73,14 @@ For the multi 2-dimensional variable combined EOF case:
 import numpy as np
 from EOF import EOF
 
-ds1  = ncfile.variable["var1"][:]
-ds1 -= np.mean(ds1, axis=(0))
-ds2  = ncfile.variable["var2"][:]
-ds2 -= np.mean(ds2, axis=(0))
-ds3  = ncfile.variable["var3"][:]
-ds3 -= np.mean(ds3, axis=(0))
+ds1     = ncfile.variable["var1"][:]
+ds1_new = (ds1 - ds1.mean(axis=(0))) / ds1.std(axis = (0))
+ds2     = ncfile.variable["var2"][:]
+ds2_new = (ds2 - ds2.mean(axis=(0))) / ds2.std(axis = (0))
+ds3     = ncfile.variable["var3"][:]
+ds3_new = (ds3 - ds3.mean(axis=(0))) / ds3.std(axis = (0))
 
-combined_EOF = EOF((ds1, ds2, ds3,), n_components=40)
+combined_EOF = EOF((ds1_new, ds2_new, ds3_new,), n_components=40)
 combined_EOF.get()
 
 # EOF modes
@@ -97,6 +96,8 @@ combined_EOF.explained
 ## Notes
 Shout out to Kai-Chi Tseng, the original algorithm developer: https://kuiper2000.github.io/
 
-This package uses sklearn.decomposition.PCA to calculate EOF. Please make sure you've already had sklearn.decomposition.PCA in your environment before using.
+This package uses sklearn.decomposition.PCA to calculating EOF. Please make sure you've already had sklearn.decomposition.PCA in your environment before using.
+
+sklearn.decomposition.PCA uses singular values decomposition (svd) to solve eigenvalue problem. If you want to specify the solver of svd, please wrap the complete arguments in a dictionary and pass the dictionary to the class. For more detail in svd arguments, please check the documentation of sklearn.decomposition.PCA.
 
 sklearn.decomposition.PCA: https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html
