@@ -43,7 +43,7 @@ $$
 
 The eigenvectors $e_m$ give the empirical orthogonal functions. The first eigenvetor $e_1$ is EOF1, the second eigenvector $e_2$ is EOF2 and so on.
 
-More details on derivation can be seen in:
+More details in derivation can be seen in:
 https://doi.org/10.1016/B978-0-12-800066-3.00006-1.
 
 ## Usage
@@ -97,8 +97,8 @@ combined_EOF.explained
 ## Notes
 Shout out to Kai-Chi Tseng, the original algorithm developer: https://kuiper2000.github.io/
 
-This package uses sklearn.decomposition.PCA to calculating EOF. Please make sure you've already had sklearn.decomposition.PCA in your environment before using.
+This package uses sklearn.decomposition.PCA to calculate EOF. Please make sure you've already had sklearn.decomposition.PCA in your environment before using.
 
-sklearn.decomposition.PCA uses singular values decomposition (svd) to solve eigenvalue problem. If you want to specify the solver of svd, please wrap the complete arguments in a dictionary and pass the dictionary to the class. For more detail in svd arguments, please check the documentation of sklearn.decomposition.PCA.
+sklearn.decomposition.PCA uses singular values decomposition (svd) to solve eigenvalue problem. If you want to specify the solver of svd, please wrap the complete arguments in a dictionary and pass the dictionary to the class. For more detail in svd arguments, please check the document of sklearn.decomposition.PCA.
 
 sklearn.decomposition.PCA: https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html
