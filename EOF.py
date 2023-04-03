@@ -18,7 +18,7 @@ class EOF:
     field: str, 1D or 2D, default = 2D
         The dimension of input variable arrays
     
-    svd_args: dict
+    **svd_args: 
         Arguments for svd calculation in sklearn.decomposition.PCA, default = {"solver": "auto", "tol": 0.0, "iterated_power": "auto", "n_oversamples": 10, "power_iteration_normalizer": "auto", "random_state": None}
     
     About EOFs
