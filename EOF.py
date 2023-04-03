@@ -37,7 +37,7 @@ class EOF:
         dataset     : tuple,
         n_components: int,
         field       : str  = "2D",
-        svd_args    : dict = {"solver": "auto", "tol": 0.0, "iterated_power": "auto", "n_oversamples": 10, "power_iteration_normalizer": "auto", "random_state": None}
+        **svd_kwargs
     ):
         self.dataset      = dataset
         self.data_arr     = None
@@ -47,7 +47,7 @@ class EOF:
         self.EOF          = None
         self.PC           = None
         self.explained    = None
-        self._svd         = svd_args
+        self._svd         = svd_kwargs
     
     def _check_dimension(self):
         """
@@ -137,7 +137,7 @@ class EOF:
         -------
         None
         """
-        pca_ = PCA(n_components = self.n_components, svd_solver = self._svd["solver"], tol = self._svd["tol"], iterated_power = self._svd["iterated_power"], n_oversamples = self._svd["n_oversamples"], power_iteration_normalizer = self._svd["power_iteration_normalizer"], random_state = self._svd["random_state"])
+        pca_ = PCA(n_components = self.n_components, **self._svd)
         pca_.fit(self.data_arr)
         self.pca = pca_
 
