@@ -2,7 +2,7 @@
 ```
 class EOF(dataset: tuple, n_components: int, field: str = "2D", **svd_args)
 ```
-This package EOF provides EOFs and combined EOFs of either 1-dimensional or 2-dimensional meteorological field.
+This module EOF provides EOFs and combined EOFs of either 1-dimensional or 2-dimensional meteorological field.
 
 If the dataset only contains one array, it will give single variable EOFs. If the dataset contains more than one array, it will give combined EOFs.
 
