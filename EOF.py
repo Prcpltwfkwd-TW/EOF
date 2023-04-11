@@ -168,8 +168,6 @@ class EOF:
         None
         """
         PC = np.dot(self.EOF, self.data_arr.T)
-        for _ in range(PC.shape[0]):
-            PC[_] = PC[_] / np.std(PC[_])
         self.PC = PC
     
     def _calc_explained(self):
