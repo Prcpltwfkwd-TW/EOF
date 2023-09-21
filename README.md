@@ -99,6 +99,4 @@ Shout out to Kai-Chi Tseng, the original algorithm developer: https://kuiper2000
 
 This package uses sklearn.decomposition.PCA to calculate EOF. Please make sure you've already had sklearn.decomposition.PCA in your environment before using.
 
-sklearn.decomposition.PCA uses singular values decomposition (svd) to solve eigenvalue problem. If you want to specify the solver of svd, please wrap the complete arguments in a dictionary and pass the dictionary to the class. For more detail in svd arguments, please check the document of sklearn.decomposition.PCA.
-
 sklearn.decomposition.PCA: https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html
