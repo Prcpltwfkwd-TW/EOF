@@ -205,3 +205,4 @@ class EOF:
         self._calc_EOF()
         self._calc_PC()
         self._calc_explained()
+        self.EOF = np.reshape(self.EOF, (self.n_components, len(self.dataset), self.dataset[0].shape[1], self.dataset[0].shape[2]))
