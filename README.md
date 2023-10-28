@@ -53,7 +53,7 @@ import numpy as np
 from EOF import EOF
 
 ds     = ncfile.variable["var"][:]
-ds_new = (ds - ds.mean(axis=(0))) / ds.std(axis = (0))
+ds_new = (ds - ds.mean()) / ds.std()
 
 single_EOF = EOF((ds_new,), n_components=40, field = "1D")
 single_EOF.get()
@@ -75,11 +75,11 @@ import numpy as np
 from EOF import EOF
 
 ds1     = ncfile.variable["var1"][:]
-ds1_new = (ds1 - ds1.mean(axis=(0))) / ds1.std(axis = (0))
+ds1_new = (ds1 - ds1.mean()) / ds1.std()
 ds2     = ncfile.variable["var2"][:]
-ds2_new = (ds2 - ds2.mean(axis=(0))) / ds2.std(axis = (0))
+ds2_new = (ds2 - ds2.mean()) / ds2.std()
 ds3     = ncfile.variable["var3"][:]
-ds3_new = (ds3 - ds3.mean(axis=(0))) / ds3.std(axis = (0))
+ds3_new = (ds3 - ds3.mean()) / ds3.std()
 
 combined_EOF = EOF((ds1_new, ds2_new, ds3_new,), n_components=40)
 combined_EOF.get()
