@@ -96,6 +96,7 @@ combined_EOF.explained
 
 ## Notes
 Thanks to Kai-Chi Tseng for the advising.
+
 Kai-Chih's github: https://kuiper2000.github.io/
 
 This package uses sklearn.decomposition.PCA to calculate EOF. Please make sure you've already had sklearn.decomposition.PCA in your environment before using.
