@@ -9,14 +9,14 @@ class EOF:
     ----------
     dataset: tuple
         A tuple with elements are variables that you want to find their EOFs
-        Variables must be array like, and must be standardized
-        If given more than one dataset, combined EOF will be calculated
+        Variables must be array like and standardized
+        If more than one datasets are given, combined EOF will be calculated
     
     n_components: int
-        Number of modes that you need
+        Number of modes
 
     field: str, 1D or 2D, default = 2D
-        The dimension of input variable arrays
+        The dimension of input variables
     
     **svd_args: 
         Arguments for svd calculation in sklearn.decomposition.PCA, default = {"solver": "auto", "tol": 0.0, "iterated_power": "auto", "n_oversamples": 10, "power_iteration_normalizer": "auto", "random_state": None}
