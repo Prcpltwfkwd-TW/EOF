@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling >= 1.26", "scikit-learn >= 1.8"]
+build-backend = "hatchling.build"
+
+[project]
+name = "EOF"
+version = "0.0.1"
+authors = [
+  { name="brownian.motion.99", email="chunhaoc777@gmail.com" },
+]
+description = "A package calculating multi-variate EOF"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+[project.urls]
+Homepage = "https://github.com/Prcpltwfkwd-TW/EOF.git"
+Issues = "https://github.com/Prcpltwfkwd-TW/EOF/issues"
