@@ -55,7 +55,7 @@ Change to this directory
 ```
 cd EOF
 ```
-Install this package using pip
+Install this package using ```pip```
 ```
 pip install -e .
 ```
@@ -113,6 +113,6 @@ Thanks to Kai-Chi Tseng for the advising.
 
 Kai-Chih's github: https://kuiper2000.github.io/
 
-This module uses sklearn.decomposition.PCA to calculate EOF. Please make sure you've already had sklearn.decomposition.PCA in your environment before using.
+This package uses sklearn.decomposition.PCA to calculate EOF.
 
 sklearn.decomposition.PCA: https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html
