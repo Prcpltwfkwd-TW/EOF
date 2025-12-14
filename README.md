@@ -2,9 +2,9 @@
 ```
 class EOF(dataset: tuple, n_components: int, field: str = "2D", **svd_args)
 ```
-This module EOF provides EOFs and combined EOFs of either 1-dimensional or 2-dimensional meteorological field.
+This is a package that calculating sigle/multi-variate EOF for 1/2-dimensional meteorological field.
 
-If the dataset only contains one array, it will give single variable EOFs. If the dataset contains more than one array, it will give combined EOFs.
+If the dataset only contains one array, it will give single-variate EOFs. If the dataset contains more than one array, it will give multi-variate EOFs.
 
 ## A simple introduction to EOFs
 Considering a data matrix $X$ with n timesteps and m spacegrids
@@ -46,8 +46,22 @@ The eigenvectors $e_m$ give the empirical orthogonal functions. The first eigenv
 More details in derivation can be seen in:
 https://doi.org/10.1016/B978-0-12-800066-3.00006-1.
 
+## Deployment
+Clone this repository
+```
+git clone git@github.com:Prcpltwfkwd-TW/EOF.git
+```
+Change to this directory
+```
+cd EOF
+```
+Install this package using pip
+```
+pip install -e .
+```
+
 ## Usage
-For the single 1-dimensional variable EOF case:
+For the single-variate 1-dimensional EOF case:
 ```
 import numpy as np
 from EOF import EOF
@@ -68,7 +82,7 @@ single_EOF.PC
 single_EOF.explained
 ```
 
-For the multi 2-dimensional variable combined EOF case:
+For the multi-variate 2-dimensional EOF case:
 
 ```
 import numpy as np
